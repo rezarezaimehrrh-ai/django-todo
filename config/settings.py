@@ -27,8 +27,8 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [ '*']
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1' , '188.40.16.3']
+#ALLOWED_HOSTS = [ '*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1' , '188.40.16.3']
 
 
 # Application definition
@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'config.urls'

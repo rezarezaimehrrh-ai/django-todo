@@ -94,13 +94,20 @@
 {%endif%}
 
 
-
-
 </ul>   
 </div> 
 
 
 {%endfor%}
+
+
+<form method="post">
+    {%csrf_token%}
+
+<button type="submit" name="log_out" value="clicked">Log Out</button>
+
+
+</form>
 
       
 </body>

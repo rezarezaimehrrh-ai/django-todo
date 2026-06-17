@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+
+
+         
+            <!-- signup or login-->
+    <form method="post" action="{% url 'sign_log' %}">
+        {% csrf_token %}
+        <button type="submit" name="login_button" value="clicked">LOG IN</button>
+        <button type="submit" name="signup_button" value="clicked">SIGN UP</button>
+
+    </form>
+
+    
+    </html>

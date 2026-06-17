@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+            <!-- sign up -->
+<form method="post" action="{% url 'sign_up' %}">
+    {% csrf_token %}
+
+    <label>USERNAME</label>
+    <input type="text" name="signup_username" placeholder="Enter Your Username">
+
+    <label>PASSWORD</label>
+    <input type="password" name="signup_password" placeholder="Enter Your Password">
+
+
+    <label>Repeat Password</label>
+    <input type="password" name="con_password" placeholder="Repeat Your Password">
+
+    <button type="submit" name="signup_enter" value="clicked">Submit</button>
+
+    <label>Already have an account?</label>
+    <button type="submit" name="login_button" value="clicked">log in</button>
+
+
+
+    </form>
+
+   <!-- <form method="post">
+{%csrf_token%}
+
+{% if user %}
+
+<li>username already taken</li>
+
+{%endif%}
+            -->
+
+
+
+    </form>
+
+    
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+                <!-- login -->
+
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+
+<label>USERNAME</label>
+<input type = "text" name="user_name" placeholder = "" >
+
+
+<label>PASSWORD</label>
+<input type="password" name="pass_word" placeholder=" " >
+
+<button type="submit" name="login_enter" value="clicked">Enter</button>
+
+<label>Don't have an account? </label>
+<button type="submit" name="signup_button" value="clicked">Click Here</button>
+
+</form>
+
+
+     
+
+</html>

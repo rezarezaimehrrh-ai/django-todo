@@ -1,22 +1,43 @@
 from django.shortcuts import render , redirect , get_object_or_404
-from .models import Task
+from .models import Task 
 
 
 #              ADD     (add1 is also the home page)          #
 
 def add_task(request):
+
+    user_id = request.session.get("user_id")
     
+
+
+    if not user_id:
+         return redirect("login")
+    
+
     if request.method=="POST":
 
-        value=request.POST.get ("item")
-        
-        
-        if value:
-            
-            Task.objects.create(text=value)  
-        return redirect("add_page")
+        value= request.POST.get("item")
+        log_out= request.POST.get("log_out")
 
-    tasks=Task.objects.all()
+
+        if log_out:
+            return redirect("sign_log")
+    
+    
+        if value:
+             
+            Task.objects.create(
+                text=value,
+                user_id=user_id
+            )
+            return redirect("add_page")
+    
+        
+             
+        
+    tasks = Task.objects.filter(user_id=user_id)
+
+
     return render(request, 'todo_app/todo_app.html' , {"tasks":tasks})
              
             
@@ -98,4 +119,9 @@ def delete_task(request):
         
         return redirect("add_page")
 
+
+
+          
+          
+         
 

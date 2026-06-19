@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect , get_object_or_404
 from .models import Task 
 
 
-#              ADD     (add1 is also the home page)          #
+#              ADD1     (add1 is also the home page)          #
 
 def add_task(request):
 

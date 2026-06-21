@@ -1,8 +1,13 @@
 from django.shortcuts import render , redirect , get_object_or_404
+from django.views.decorators.cache import never_cache
+from django.contrib.auth.decorators import login_required 
 from .models import Task 
 
 
-#              ADD1     (add1 is also the home page)          #
+#              ADD     (add1 is also the home page)          #
+
+@never_cache
+@login_required
 
 def add_task(request):
 
@@ -31,9 +36,7 @@ def add_task(request):
                 user_id=user_id
             )
             return redirect("add_page")
-    
-        
-             
+              
         
     tasks = Task.objects.filter(user_id=user_id)
 
@@ -43,7 +46,8 @@ def add_task(request):
             
  #             EDIT               #   
             
-
+@never_cache
+@login_required
 def edit_task(request):
 
     if request.method=="POST":
@@ -65,7 +69,8 @@ def edit_task(request):
     
 #              DONE                #                
     
-
+@never_cache
+@login_required
 def check_task(request):
                
         if request.method=="POST":
@@ -86,7 +91,8 @@ def check_task(request):
 
 
 #                 UNDONE                 #
-                
+@never_cache
+@login_required               
 def undone_task(request):            
             
         if request.method=="POST":
@@ -103,7 +109,8 @@ def undone_task(request):
 
 
 #                 DELETE                #
-
+@never_cache
+@login_required
 def delete_task(request):
 
     if request.method=="POST":

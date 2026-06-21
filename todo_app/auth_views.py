@@ -1,6 +1,12 @@
 from django.shortcuts import redirect , render , get_object_or_404
+from django.views.decorators.cache import never_cache
+from django.contrib.auth.decorators import login_required
 from .models import User
 
+
+                #   sign up or log in   #
+@never_cache
+@login_required
 
 def sign_log(request):
     if request.method=="POST":
@@ -15,6 +21,10 @@ def sign_log(request):
     return render(request , "todo_app/sign_log.html")
 
 
+                #   sign up   #
+
+@never_cache
+@login_required
 
 def sign_up(request):
 
@@ -26,14 +36,6 @@ def sign_up(request):
             signup_enter= request.POST.get("signup_enter")
             con_password= request.POST.get("con_password")
             login_button= request.POST.get("login_button")
-            username_check=False
-
-
-            #user = User.objects.filter(username=suser_name).first()
-
-            #if user:
-                #return render(request, "todo_app/sign_up.html", {"user":user})
-
             
 
 
@@ -58,8 +60,9 @@ def sign_up(request):
 
 
 
-
-
+                #   log in   #
+@never_cache
+@login_required
 
 def log_in(request):
 

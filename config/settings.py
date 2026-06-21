@@ -25,10 +25,10 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-#ALLOWED_HOSTS = [ "*" ]
-ALLOWED_HOSTS = ['firstmytodo.runflare.run']
+ALLOWED_HOSTS = [ "*" ]
+#ALLOWED_HOSTS = ['firstmytodo.runflare.run']
 CSRF_TRUSTED_ORIGINS = [ 'https://firstmytodo.runflare.run' ]
 
 

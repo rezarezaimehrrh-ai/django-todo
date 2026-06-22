@@ -5,8 +5,7 @@ from .models import User
 
 
                 #   sign up or log in   #
-@never_cache
-@login_required
+
 
 def sign_log(request):
     if request.method=="POST":
@@ -23,8 +22,7 @@ def sign_log(request):
 
                 #   sign up   #
 
-@never_cache
-@login_required
+
 
 def sign_up(request):
 
@@ -61,8 +59,6 @@ def sign_up(request):
 
 
                 #   log in   #
-@never_cache
-@login_required
 
 def log_in(request):
 

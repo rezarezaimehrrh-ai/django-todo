@@ -16,7 +16,7 @@ def add_task(request):
 
 
     if not user_id:
-         logout(request)
+         
          return redirect("login")
     
 
@@ -28,7 +28,7 @@ def add_task(request):
 
         if log_out:
 
-            request.session.flush()
+            logout(request)
             return redirect("sign_log")
     
     

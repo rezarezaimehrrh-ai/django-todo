@@ -28,7 +28,7 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 DEBUG = False
 
 #ALLOWED_HOSTS = [ "*" ]
-ALLOWED_HOSTS = ['firstmytodo.runflare.run' , '127.0.0.1' ]
+ALLOWED_HOSTS = ['firstmytodo.runflare.run' , '127.0.0.1' , '188.40.16.3' ]
 CSRF_TRUSTED_ORIGINS = [ 'https://firstmytodo.runflare.run' ]
 
 

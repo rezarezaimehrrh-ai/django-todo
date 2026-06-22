@@ -1,5 +1,6 @@
 from django.shortcuts import render , redirect , get_object_or_404
 from django.views.decorators.cache import never_cache
+from django.contrib.auth import logout
  
 from .models import Task 
 
@@ -15,6 +16,7 @@ def add_task(request):
 
 
     if not user_id:
+         logout(request)
          return redirect("login")
     
 

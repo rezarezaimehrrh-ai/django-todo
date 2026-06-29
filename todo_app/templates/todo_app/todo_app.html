@@ -1,115 +1,152 @@
 <!DOCTYPE html>
 
 <html>
-    <style>
-        .row{
-
-            display: flex;
-            align-items: center;
-        }
-        .row form{
-            display: inline;
-        }
-    </style>
 
 
-<head><title>TODOLISTS</title></head>
+
+<head>
+    <title>TODOLISTS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
 
 
 <body>
-    <h1>These Are The Asked Tasks: <br></h1>
-
-
-                            <!--items -->
-
-
-    <form method="post" action="{% url 'add_page' %}">
-{% csrf_token %}
-
-<input type="text" name="item" placeholder="type it...">
-<button type="submit" value="{{x.id}}">add it</button>
-    
-</form>    
-
-
-                            <!--  Add   -->
-
-{%for x in tasks%}
-<div class="row">
- 
-<span>{{x.text}}</span>
 
 
 
-<ul>                        <!--done-->        
-        
-    
-    {%if not x.done%}
-    <form method="post" action="{% url 'boolpage' %}">
-        
-        {%csrf_token%}
-        
-    <button type="submit" name="complete" value="{{x.id}}">done </button>
-        
-    </form>
-    {% endif %}
-
-                                <!--undone-->
-
-    <form method="post" action="{% url 'un_donepage' %}">
-    {% csrf_token %}
-
-    {% if x.done %}
-
-                               
-    <button type="submit" name="not_complete" value="{{x.id}}"> Undone </button>
-
-    {% endif %}
-    
-    
-    </form>
-   
-
-
-                                <!--delete-->
-
-
-    <form method="post" action="{% url 'delpage' %}" >
-        {% csrf_token %}
-        <button type="submit" name="delete" value="{{x.id}}">delete</button>
-    </form>
 
 
 
-{% if x.text %}                 <!--edit-->
-                        
-<form method="post" action="{% url 'edpage' %}">
-        {% csrf_token %}
-        
-        <button type="submit" name="edit_it" value="{{x.id}}">edit it</button>
+    <div class="container mt-5">
+        <div class="card shadow mt-3 p-4">
 
-        <input type="text" name="new_edit" placeholder="edit it"></form>
-
-{%endif%}
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div></div>
 
 
-</ul>   
-</div> 
+
+                <div class="text-center">
+
+                    <h1 class="display-5 fw-bold">My Todo List <br></h1>
+                    <p class="text-muted">Orgonize your daily tasks</p>
+
+                </div>
 
 
-{%endfor%}
 
 
-<form method="post">
-    {%csrf_token%}
-
-<button type="submit" name="log_out" value="clicked">Log Out</button>
 
 
-</form>
+                <form method="post">
+                    {%csrf_token%}
+                    <button type="submit" name="log_out" value="clicked" class="btn btn-outline-dark">Log Out</button>
+                </form>
+            </div>
 
-      
+
+
+
+
+            <!--add -->
+
+
+            <form method="post" action="{% url 'add_page' %}" class="d-flex mb-4">
+                {% csrf_token %}
+
+                <input type="text" name="item" placeholder="Enter Your New Task" class="form-control me-2 py-2">
+                <button type="submit" class="btn btn-primary" value="{{x.id}}">Add</button>
+
+            </form>
+
+
+
+            <!--  items   -->
+
+            {%for x in tasks%}
+            <div class="row align-items-center border rounded p-3 mt-3">
+                <div class="col">
+
+                    <span class="semibold fs-5">{{x.text}}</span>
+                </div>
+
+
+                <!--done-->
+
+                <div class="col-auto d-flex gap-2">
+
+
+                    {%if not x.done%}
+
+                    <form method="post" action="{% url 'boolpage' %}">
+                        {%csrf_token%}
+
+                        <button type="submit" name="complete" value="{{x.id}}" class="btn btn-success btn-sm">Done
+                        </button>
+
+                    </form>
+                    {% endif %}
+
+                    <!--undone-->
+
+                    <form method="post" action="{% url 'un_donepage' %}">
+                        {% csrf_token %}
+
+                        {% if x.done %}
+
+
+                        <button type="submit" name="not_complete" value="{{x.id}}" class="btn btn-secondary btn-sm">
+                            Undone
+                        </button>
+
+                        {% endif %}
+
+
+                    </form>
+
+
+
+                    <!--delete-->
+
+
+                    <form method="post" action="{% url 'delpage' %}">
+                        {% csrf_token %}
+                        <button type="submit" name="delete" value="{{x.id}}" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+
+
+
+                    {% if x.text %} <!--edit-->
+
+                    <form method="post" action="{% url 'edpage' %}" class="d-flex">
+                        {% csrf_token %}
+
+                        <button type="submit" name="edit_it" value="{{x.id}}" class="btn btn-warning">Edit</button>
+
+                        <input type="text" name="new_edit" placeholder="edit it" class="form-control ms-1">
+                    </form>
+
+                    {%endif%}
+
+
+                </div>
+
+            </div>
+
+
+
+
+            {%endfor%}
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+
+
+
+
 </body>
 
 </html>

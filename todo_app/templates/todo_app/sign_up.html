@@ -27,15 +27,12 @@
 
     </form>
 
-   <!-- <form method="post">
-{%csrf_token%}
+  
+   {% if  user_exists %}
 
-{% if user %}
+    <p>username already exists</p>
 
-<li>username already taken</li>
-
-{%endif%}
-            -->
+    {% endif %}
 
 
 

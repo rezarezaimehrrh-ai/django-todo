@@ -1,7 +1,10 @@
 from django.shortcuts import redirect , render , get_object_or_404
-from django.views.decorators.cache import never_cache
-from django.contrib.auth.decorators import login_required
+#from django.views.decorators.cache import never_cache
+#from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login , authenticate
 from .models import User
+from django.contrib import messages
+
 
 
                 #   sign up or log in   #
@@ -34,19 +37,23 @@ def sign_up(request):
             signup_enter= request.POST.get("signup_enter")
             con_password= request.POST.get("con_password")
             login_button= request.POST.get("login_button")
+            user_exists= User.objects.filter(username=suser_name).exists()
+            
+            if user_exists:
+                
+                return render(request , "todo_app/sign_up.html" , {"user_exists":user_exists})
             
 
-
-            if suser_name and spass_word==con_password and signup_enter:
+            elif suser_name and spass_word==con_password and signup_enter:
 
                 
 
-                User.objects.create(
+                User.objects.create_user(
                     username = suser_name , password = spass_word
                     )
 
-
-                return redirect("sign_log")
+                messages.success(request , "Account created successfully.")
+                return redirect("login")
             
             elif login_button:
 
@@ -70,21 +77,29 @@ def log_in(request):
         signup_button= request.POST.get("signup_button")
        
 
-        user = User.objects.filter(username = user_name, password = pass_word).first()
+        user = authenticate(request , username = user_name, password = pass_word)
 
         
         
         if user and enter:
 
             request.session ["user_id"] = user.id
-            request.session.get("user_id")
+            
         
             return redirect("add_page")
+        
+        elif not user and enter :
+            messages.error(request , "Invalid username or password")
+            return redirect("login")
         
         elif signup_button:
             return redirect("sign_up")
         
     return render(request , 'todo_app/login.html')
+        
+        
+
+        
 
 
 

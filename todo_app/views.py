@@ -1,25 +1,19 @@
 from django.shortcuts import render , redirect , get_object_or_404
 from django.views.decorators.cache import never_cache
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
- 
+
 from .models import Task 
 
 
 #              ADD     (add1 is also the home page)          #
 
 @never_cache
-
+@login_required
 def add_task(request):
 
-    user_id = request.session.get("user_id")
     
-
-
-    if not user_id:
-         
-         return redirect("login")
     
-
     if request.method=="POST":
 
         value= request.POST.get("item")
@@ -29,19 +23,19 @@ def add_task(request):
         if log_out:
 
             logout(request)
-            return redirect("sign_log")
+            return redirect("login")
     
     
         if value:
              
             Task.objects.create(
                 text=value,
-                user_id=user_id
+                user=request.user
             )
             return redirect("add_page")
               
         
-    tasks = Task.objects.filter(user_id=user_id)
+    tasks = Task.objects.filter(user= request.user)
 
 
     return render(request, 'todo_app/todo_app.html' , {"tasks":tasks})
@@ -50,7 +44,7 @@ def add_task(request):
  #             EDIT               #   
             
 @never_cache
-
+@login_required
 def edit_task(request):
 
     if request.method=="POST":
@@ -60,7 +54,7 @@ def edit_task(request):
 
         if edt_task and edt_id:
 
-            new_id=get_object_or_404(Task, id=edt_id) 
+            new_id=get_object_or_404(Task, id=edt_id, user=request.user)
             new_id.text=edt_task
             new_id.save()
             
@@ -73,7 +67,7 @@ def edit_task(request):
 #              DONE                #                
     
 @never_cache
-
+@login_required
 def check_task(request):
                
         if request.method=="POST":
@@ -82,11 +76,11 @@ def check_task(request):
             
                  
             if done_id:
-                task_id=get_object_or_404(Task, id=done_id)
+                task_id=get_object_or_404(Task, id=done_id, user=request.user)
                 task_id.done=True
                 task_id.save()
 
-               # tasks=Task.objects.all()
+               
 
                                 
                 return redirect("add_page")
@@ -95,7 +89,7 @@ def check_task(request):
 
 #                 UNDONE                 #
 @never_cache
-              
+@login_required              
 def undone_task(request):            
             
         if request.method=="POST":
@@ -103,7 +97,7 @@ def undone_task(request):
             undone_id=request.POST.get("not_complete")
 
             if undone_id:
-                undn_id=get_object_or_404(Task, id=undone_id)
+                undn_id=get_object_or_404(Task, id=undone_id, user= request.user)
                 undn_id.done=False
                 undn_id.save()    
 
@@ -113,7 +107,7 @@ def undone_task(request):
 
 #                 DELETE                #
 @never_cache
-
+@login_required
 def delete_task(request):
 
     if request.method=="POST":
@@ -122,7 +116,7 @@ def delete_task(request):
 
         if del_task:
 
-            del_id=get_object_or_404(Task, id=del_task)
+            del_id=get_object_or_404(Task, id=del_task, user= request.user)
             del_id.delete()
 
 
